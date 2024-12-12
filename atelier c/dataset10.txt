@@ -1,0 +1,8 @@
+3
+data images1.jpg(photo1) images2.jpg(photo2)
+backup images3.jpg(photo1)
+archive images4.jpg(photo3) images2.jpg(photo2)
+[
+  ["data/images1.jpg", "backup/images3.jpg"],
+  ["data/images2.jpg", "archive/images2.jpg"],
+]

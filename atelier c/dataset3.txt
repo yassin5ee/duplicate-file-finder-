@@ -1,0 +1,11 @@
+5
+folderA a.txt(contentX) b.txt(contentY)
+folderB c.txt(contentX) d.txt(contentZ)
+folderC e.txt(contentZ) f.txt(contentW)
+folderD g.txt(contentW)
+folderE h.txt(contentX)
+[
+  ["folderC/f.txt", "folderD/g.txt"],
+  ["folderA/a.txt", "folderB/c.txt", "folderE/h.txt"],
+  ["folderB/d.txt", "folderC/e.txt"],
+]
