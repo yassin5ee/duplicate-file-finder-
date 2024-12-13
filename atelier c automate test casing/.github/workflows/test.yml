@@ -20,4 +20,4 @@ jobs:
       - name: Run Tests
         run: |
           chmod +x run_tests.sh
-          .github/workflows/run_tests.sh
+          /run_tests.sh
