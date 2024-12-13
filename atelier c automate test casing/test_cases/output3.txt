@@ -1,0 +1,5 @@
+[
+  ["folderC/f.txt", "folderD/g.txt"],
+  ["folderA/a.txt", "folderB/c.txt", "folderE/h.txt"],
+  ["folderB/d.txt", "folderC/e.txt"],
+]

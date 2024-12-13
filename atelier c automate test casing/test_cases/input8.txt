@@ -1,6 +1,3 @@
 2
 docs doc1.pdf(info1) doc2.pdf(info2)
 backup doc3.pdf(info1) doc4.pdf(info3)
-[
-  ["docs/doc1.pdf", "backup/doc3.pdf"],
-]

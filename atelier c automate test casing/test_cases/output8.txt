@@ -1,0 +1,3 @@
+[
+  ["docs/doc1.pdf", "backup/doc3.pdf"],
+]

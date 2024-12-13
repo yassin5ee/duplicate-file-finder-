@@ -1,0 +1,4 @@
+[
+  ["project1/main.c", "project3/test.c", "project5/doc.txt"],
+  ["project1/utils.c", "project2/utils.c"],
+]

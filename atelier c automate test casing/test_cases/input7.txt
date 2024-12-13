@@ -4,7 +4,3 @@ project2 utils.c(code2) helper.c(code3)
 project3 test.c(code1) config.c(code4)
 project4 readme.md(code5)
 project5 doc.txt(code1)
-[
-  ["project1/main.c", "project3/test.c", "project5/doc.txt"],
-  ["project1/utils.c", "project2/utils.c"],
-]

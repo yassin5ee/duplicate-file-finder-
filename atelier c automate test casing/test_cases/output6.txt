@@ -1,0 +1,5 @@
+[
+  ["root/file1.cpp", "src/file3.cpp"],
+  ["root/file2.cpp", "lib/file5.cpp"],
+  ["src/file4.cpp", "include/file6.cpp"],
+]
