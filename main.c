@@ -130,7 +130,7 @@ void findDuplicate(char** paths, int pathsSize) {
 }
 
 int main() {
-    FILE* file = fopen("C:/Users/anasw/Downloads/atelier c/atelier c/dataset2.txt", "r");
+    FILE* file = fopen("input1.txt", "r");
     if (!file) {
         perror("Unable to open file");
         return EXIT_FAILURE;
