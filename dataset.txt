@@ -1,0 +1,50 @@
+8
+3
+Root/a 0.txt(e)
+Root/a 1.txt(abc)
+Root/a b.txt(abc)
+[["Root/a/1.txt", "Root/a/b.txt"]]
+5
+folderA a.txt(contentX) b.txt(contentY)
+folderB c.txt(contentX) d.txt(contentZ)
+folderC e.txt(contentZ) f.txt(contentW)
+folderD g.txt(contentW)
+folderE h.txt(contentX)
+[["folderA/a.txt", "folderE/h.txt"],["folderB/d.txt", "folderC/e.txt"],["folderC/f.txt", "folderD/g.tt"]]
+6
+dir1 f1.txt(text1) f2.txt(text2)
+dir2 f3.txt(text1)
+dir3 f4.txt(text3) f5.txt(text2)
+dir4 f6.txt(text4)
+dir5 f7.txt(text3)
+dir6 f8.txt(text4)
+[["dir1/f1.txt", "dir2/f3.txt"],["dir1/f2.txt", "dir3/f5.txt"],["dir3/f4.txt", "dir5/f7.txt"],["dir4/f6.txt", "dir6/f8.txt"]]
+3
+data images1.jpg(photo1) images2.jpg(photo2)
+backup images3.jpg(photo1)
+archive images4.jpg(photo3) images2.jpg(photo2)
+[["data/images1.jpg", "backup/images3.jpg"],["data/images2.jpg", "archive/images2.jpg"]]
+4
+root file1.cpp(contentA) file2.cpp(contentB)
+src file3.cpp(contentA) file4.cpp(contentC)
+lib file5.cpp(contentB)
+include file6.cpp(contentC)
+[["root/file1.cpp", "src/file3.cpp"],["root/file2.cpp", "lib/file5.cpp"],["src/file4.cpp", "include/file6.cpp"]]
+5
+project1 main.c(code1) utils.c(code2)
+project2 utils.c(code2) helper.c(code3)
+project3 test.c(code1) config.c(code4)
+project4 readme.md(code5)
+project5 doc.txt(code1)
+[["project1/main.c", "project3/test.c", "project5/doc.txt"],["project1/utils.c", "project2/utils.c"]]
+2
+docs doc1.pdf(info1) doc2.pdf(info2)
+backup doc3.pdf(info1) doc4.pdf(info3)
+[["docs/doc1.pdf", "backup/doc3.pdf"]]
+4
+folder1 a.txt(data1) b.txt(data2)
+folder2 c.txt(data3) d.txt(data1)
+folder3 e.txt(data2)
+folder4 f.txt(data3)
+[["folder1/a.txt", "folder2/d.txt"],["folder1/b.txt", "folder3/e.txt"],["folder2/c.txt", "folder4/f.txt"]]
+

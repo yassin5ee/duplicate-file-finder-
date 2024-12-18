@@ -1,5 +1,0 @@
-[
-  ["folder1/a.txt", "folder2/d.txt"],
-  ["folder1/b.txt", "folder3/e.txt"],
-  ["folder2/c.txt", "folder4/f.txt"],
-]

@@ -1,4 +1,0 @@
-[
-  ["data/images1.jpg", "backup/images3.jpg"],
-  ["data/images2.jpg", "archive/images2.jpg"],
-]

@@ -80,9 +80,10 @@ void free_table(HashTable* ht) {
     free(ht);
 }
 
-// Function to find duplicate files
-void findDuplicate(char** paths, int pathsSize) {
+// Function to find duplicate files and validate against expected output
+int findDuplicate(char* paths[], int pathsSize, const char* expected_output) {
     HashTable* ht = create_table(HASH_TABLE_SIZE);
+    int correct = 1;  // Flag to check if test case is correct
 
     // Process each path string
     for (int i = 0; i < pathsSize; i++) {
@@ -108,54 +109,93 @@ void findDuplicate(char** paths, int pathsSize) {
         free(path);  // Free the allocated memory for current path
     }
 
-    // Print the duplicates (paths with the same content)
-    printf("[\n");
+    // Print the duplicates (paths with the same content) in one line
+    printf("[");
+    int first_output = 1;
     for (int i = 0; i < ht->size; i++) {
         Node* node = ht->table[i];
         while (node) {
             if (node->path_count > 1) {
-                printf("  [");
+                if (!first_output) {
+                    printf(", ");
+                }
+                printf("[");
                 for (int j = 0; j < node->path_count; j++) {
                     printf("\"%s\"", node->paths[j]);
                     if (j < node->path_count - 1) printf(", ");
                 }
-                printf("],\n");
+                printf("]");
+                first_output = 0;  // After the first output
             }
             node = node->next;
         }
     }
     printf("]\n");
 
+    // Compare actual output with expected output
+    // Trim and compare outputs
+    char* trimmed_expected = strdup(expected_output);
+    trimmed_expected[strlen(trimmed_expected) - 1] = '\0';  // Remove the last bracket
+
+    // Output results
+    if (strstr(trimmed_expected, "[]") || !first_output) {
+        printf("The test is correct.\n");
+    } else {
+        printf("The test is incorrect.\n");
+        correct = 0;  // Mark test as incorrect
+    }
+
+    // Free memory
+    free(trimmed_expected);
     free_table(ht);  // Free the hash table
+
+    return correct;  // Return 1 if correct, 0 if incorrect
 }
 
 int main() {
-    FILE* file = fopen("C:/Users/anasw/Downloads/atelier c/atelier c/dataset2.txt", "r");
+    FILE* file = fopen("dataset.txt", "r");
     if (!file) {
         perror("Unable to open file");
         return EXIT_FAILURE;
     }
 
-    int n;
-    fscanf(file, "%d\n", &n);  // Read the number of paths
+    int num_tests;
+    fscanf(file, "%d\n", &num_tests);  // Read the number of test cases
 
-    char* paths[n];
+    int correct_count = 0;  // Counter for correct test cases
 
-    // Read all paths from the file
-    for (int i = 0; i < n; i++) {
-        paths[i] = (char*)malloc(MAX_PATH_LEN * sizeof(char));
-        fgets(paths[i], MAX_PATH_LEN, file);
-        paths[i][strcspn(paths[i], "\n")] = '\0';  // Remove the newline character from the input
+    for (int t = 0; t < num_tests; t++) {
+        int n;
+        fscanf(file, "%d\n", &n);  // Read the number of paths
+
+        char* paths[n];
+        // Read all paths from the file
+        for (int i = 0; i < n; i++) {
+            paths[i] = (char*)malloc(MAX_PATH_LEN * sizeof(char));
+            fgets(paths[i], MAX_PATH_LEN, file);
+            paths[i][strcspn(paths[i], "\n")] = '\0';  // Remove the newline character from the input
+        }
+
+        // Read the expected output
+        char expected_output[1024];
+        fgets(expected_output, sizeof(expected_output), file);
+        expected_output[strcspn(expected_output, "\n")] = '\0';  // Remove the newline character
+
+        // Call the function to find duplicates and validate against expected output
+        if (findDuplicate(paths, n, expected_output)) {
+            correct_count++;  // Increment correct count if the test is correct
+        }
+
+        // Free allocated memory for paths
+        for (int i = 0; i < n; i++) {
+            free(paths[i]);
+        }
     }
+
     fclose(file);
 
-    // Call the function to find duplicates
-    findDuplicate(paths, n);
+    // Print the total number of correct test cases
+    printf("Total correct test cases: %d out of %d\n", correct_count, num_tests);
 
-    // Free allocated memory
-    for (int i = 0; i < n; i++) {
-        free(paths[i]);
-    }
-
-    return 0;
+    return EXIT_SUCCESS;
 }

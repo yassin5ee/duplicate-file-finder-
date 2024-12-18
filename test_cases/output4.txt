@@ -1,6 +1,0 @@
-[
-  ["dir1/f1.txt", "dir2/f3.txt"],
-  ["dir1/f2.txt", "dir3/f5.txt"],
-  ["dir3/f4.txt", "dir5/f7.txt"],
-  ["dir4/f6.txt", "dir6/f8.txt"],
-]

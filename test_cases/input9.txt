@@ -1,5 +1,0 @@
-4
-folder1 a.txt(data1) b.txt(data2)
-folder2 c.txt(data3) d.txt(data1)
-folder3 e.txt(data2)
-folder4 f.txt(data3)
