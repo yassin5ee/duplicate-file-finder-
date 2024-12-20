@@ -1,4 +1,145 @@
-# duplicate-file-finder-
+This is the readme file that contains a full description of the code giving it's general purpose 
+and explaining how each function in the MAIN code works and why we need it in the first 
+place while covering it's time and space complexity.
+
+Purpose of the project:
+The goal of this project is to detect duplicate files among a multitude of files that 
+the user provides; but these files don't actually exist in the user's pc so the content of each file
+must be written besides the path of that file; here is a detailed explanation :
+first the user enters the path of a file (that we are going to call the main file) in the MAIN code 
+exactly at the line 133,meaning that when you launch the code you won't have to enter the name of any
+directories or files to search for duplicate files in them as everything is written in the text file 
+you provide. Thus the programme shows you directly the results upon launching.
+and this file must follow a very strict syntax :
+-the first line only includes the number of lines the file contains 
+(excluding the first line)
+-each other line must follow this terminology :             ( directory_1 file.txt_1 
+                                                            directory_2 file_3 file_4 file_5
+                                                            directory_3 file_6 file_7
+                                                            ...)
+however this is an example since each directory may lead to as many text files as the user wants
+Notes : -a directory must not lead to other directories in it; it must lead to text files only.
+        -each file is written in this manner ( name_of_file ( content_of_file ))
+        - each line must have a distinct directory meaning that you can't have this form :
+        ( directory_1 file.txt_1 
+         directory_2 file.txt_3 
+         directory_2 file.txt_4 file.txt_5
+         directory_3 file.txt_6 file.txt_7
+         ...)
+
+
+
+How the code works ?
+there is a total of 6 functions used in this project and they are :
+-MAIN (which calls :)
+   -FIND DUPLICATE (which calls :)
+      -CREATE TABLE
+      -INSERT (which calls :)
+         -HASH FUNCTION
+      -FREE TABLE
+let's explain each one of them now...
+MAIN :
+   A) The file that has it's name written in line 133 must be read:
+      1) The file that the user provided is opened 
+      2) An array whose length is equal to the number of lines the main file contains is created.
+      the nth element of paths will contain the entirety of the nth line of the main file,
+      however the last element of each line (which is "\n" ) must be removed 
+      3) The file is closed
+   B) FIND DUPLICATE function is called :
+      1) CREATE TABLE function is called to create a hash table
+      ---------------------------------------------------------------------------------------------------
+      why do we need a hash table in the first place ?
+      We know that some files in the main file share the same content; so we must create a data 
+      structure that stores all the distinct contents of the main file, and each content will be
+      associated with the list of paths of files that share that exact content ; so each distinct 
+      content will be identified by it's hash value. However, hash values aren't perfect as 2 or more
+      distinct files may share the same hash value. 
+      So to make things simple : 
+      -the length of the hash table is equal to the number of hash values that can possibly be created.
+      -each element of the hash table corresponds to a hash value and for each hash value we have a 
+      linked list that's formed of nodes. a node is a structure that includes:
+            -A content
+            -A list of paths of the files that share that content 
+            -The length of that list
+            -A pointer that points to the next element of the linked list
+      REMINDER : All the contents that are in the same linked list have the same hash value.
+      -Then this hash table will be scanned by traversing all hash values
+          -for each hash value we will traverse the entire linked list associated with it.
+              -each node of a single linked list will be analyzed :
+              in one node, if the list of paths has 2 elements or more this means that these files share
+              the same content so their paths must be printed out.
+      ---------------------------------------------------------------------------------------------------
+      As we said; create table function is called to create a hash table whose length is equal to the 
+      number of lines in the main file, meaning the number of directories.
+      Each element of the hash table corresponds to a multitude of contents that share the same hash 
+      value.
+      2) a) Now we will try to insert the content and path of each file of the main file to this hash 
+      table, and here are the required steps to do that :
+      -Traverse the paths array until the last element
+            -For each element of the array (which corresponds to a line in the main file) : since the 
+            element is written in this fashion : 
+            directory_n path_of_file_j (content_of_fie_j) path_of_file_j+1 (content_of_file_j+1)...
+            we must split the element into separate strings based on a separator which is spacebar.
+            And now in order to insert the path and the content of each file belonging to this directory 
+            into the hash table, here are the steps:
+            -All these created strings must be traversed (except for the string containing the directory)
+                  -For each string we must locate the '(' and ')' characters to distinguish between the
+                  path section and the content section of the file
+                  -The path section will be concatenated with the directory to construct the full path of
+                  the file.
+                  2) b) The INSERT function is called to insert the full path and the content of the file 
+                  into the hash table :
+                  -The HASH FUNCTION function is called to calculate the hash value of that content
+                  -In the hash table if there is a linked list that corresponds to that hash value; it 
+                  will be traversed to find the node that has the same content :
+                        -If we find that node; the path of our file will be added to the list of paths of 
+                        that node
+                        -If not we simply create a new node in this linked list where we insert the 
+                        content and the path and this node will be the head of the linked list.
+                  -If there isn't a linked list corresponding to this hash value; a new linked list will
+                  be created and the node that we create from the content and path of our file will be 
+                  the head and the only element of this linked list.
+                  NOTE: during this , in the node where our file will exist the number of paths 
+                  associated to our content will be incremented by one.
+      3) After inserting every file into the hash table we will print out all the duplicate files and to 
+      do that we have to :
+      -Traverse our hash table by scanning every hash value
+            -For a given hash value we will traverse the entire linked list corresponding to it by 
+            scanning each node
+                  -For a given node if the number of paths related to it is bigger than 1, all these 
+                  paths will be printed out to the screen
+      4) FREE TABLE function is called to free up all the space used by the hash table. the steps to do 
+      that are :
+      -Traverse the hash table with hash values
+            -For a given hash value traverse the associated linked list 
+                  -For each node:  -free up the content and each element of the paths array
+                                   -Free up the paths array itself
+      -Free up the hash table itself
+   C) Free up each element of the array paths which stores each line of the main file 
+
+
+
+
+Complexity of the code :
+Time complexity : Let's suppose that 
+-n is the number of directories (number of lines in the main file)
+-L is the average length of a line in the main file (called path)
+-Lp is the average length of the path of a file (a file has the following structure ): 
+name_of_file(content_of_file)
+-p is the average number of files in a directory
+-N is the number of nodes ( meaning unique contents )
+-K is the number of duplicates
+And assuming that no collisions happen meaning that two distinct contents can't have the same  hash value
+( which is the average scenario ) then the total time complexity is :
+O(N + K*Lp + n*p*L)
+Space complexity : 
+O(n*MAX_FILES*MAX_PATH_LEN) where n is the number of directories (number of lines in the main file)
+
+
+__________________________________________________________________________________________________________________________________________________________________
+
+
+#deep explanation of each line of the code
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -171,7 +312,7 @@ int main() {
 
     // Calls the function to find duplicates
     findDuplicate(paths, n);
-
+                                
     // Frees the allocated memory associated with the array paths
     for (int i = 0; i < n; i++) {
         free(paths[i]);
