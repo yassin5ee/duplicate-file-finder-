@@ -14,18 +14,18 @@ and this file must follow a very strict syntax :
 -the first line only includes the number of lines the file contains 
 (excluding the first line)
 -each other line must follow this terminology :             ( directory_1 file.txt_1 
-                                                            directory_2 file_3 file_4 file_5
-                                                            directory_3 file_6 file_7
-                                                            ...)
+                                                              directory_2 file.txt_3 file.txt_4 file.txt_5
+                                                              directory_3 file.txt_6 file.txt_7
+                                                              ... )
 however this is an example since each directory may lead to as many text files as the user wants
 Notes : -a directory must not lead to other directories in it; it must lead to text files only.
         -each file is written in this manner ( name_of_file ( content_of_file ))
         - each line must have a distinct directory meaning that you can't have this form :
         ( directory_1 file.txt_1 
-         directory_2 file.txt_3 
-         directory_2 file.txt_4 file.txt_5
-         directory_3 file.txt_6 file.txt_7
-         ...)
+          directory_2 file.txt_3 
+          directory_2 file.txt_4 file.txt_5
+          directory_3 file.txt_6 file.txt_7
+          ... )
 
 
 
