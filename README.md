@@ -133,7 +133,9 @@ And assuming that no collisions happen meaning that two distinct contents can't 
 ( which is the average scenario ) then the total time complexity is :
 O(N + K*Lp + n*p*L)
 Space complexity : 
-O(n*MAX_FILES*MAX_PATH_LEN) where n is the number of directories (number of lines in the main file)
+O(HASH_TABLE_SIZE + n*MAX_PATH_LEN + N*(average content size + average paths array size)). where:
+-n is the number of directories (number of lines in the main file)
+-N is the number of nodes ( meaning unique contents )
 
 
 __________________________________________________________________________________________________________________________________________________________________
